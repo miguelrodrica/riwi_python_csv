@@ -1,91 +1,79 @@
-# User Story – Módulo 1 (Python)
-## Gestión de productos con persistencia en archivos CSV
+# User Story – CRUD de usuarios con login y persistencia en archivos CSV
 
 ## Objetivo de la historia de usuario
-Como estudiante del curso **Desarrollo de Software Web & Analítica de Datos (Riwi)**, quiero construir un programa en Python que permita **registrar, consultar, editar y persistir información de productos en archivos CSV**, para practicar el manejo de estructuras de datos, validaciones, funciones y lectura/escritura de archivos.
+Como estudiante del curso **Desarrollo de Software Web & Analítica de Datos (Riwi)**, quiero desarrollar un programa en Python que permita autenticar usuarios (login) y gestionar un CRUD de usuarios con persistencia en archivos CSV, practicando así estructuras de datos, validaciones, modularización, manejo de errores y lectura/escritura de archivos.
 
-El propósito principal de esta actividad es reforzar:
-- Conexión con archivos CSV.
-- Manipulación de datos cargados desde CSV.
-- Persistencia de cambios en disco.
-- Manejo de errores comunes durante lectura/escritura.
+El propósito principal de la actividad es reforzar:
+- Leer, validar y escribir archivos CSV.
+- Realizar login a partir de credenciales guardadas en CSV.
+- Crear, consultar, actualizar y eliminar usuarios, manteniendo persistencia de los datos.
+- Control de errores y validaciones robustas para una experiencia de uso confiable.
 
 ---
 
 ## Descripción de tareas
 
 ### TASK 1
-#### Modelado del dato y estructura base
-- Definir la estructura de cada producto (por ejemplo, como diccionario).
-- Crear una colección principal para almacenar varios productos en memoria.
-- Establecer los campos mínimos esperados (ej. nombre, precio, cantidad o equivalentes según tu solución).
+#### Login con validación desde CSV
+- Cargar un archivo `login.csv` que contiene usuarios y contraseñas.
+- Solicitar datos de acceso desde consola y validar contra el archivo.
+- Permitir acceso solo si las credenciales son correctas.
 
 ---
 
 ### TASK 2
-#### Operaciones principales sobre los datos
+#### CRUD y persistencia de usuarios
+- Cada usuario tiene Nombre, Apellidos y Correo (único/clave primaria).
 - Implementar funciones para:
-  - Agregar registros.
-  - Mostrar registros.
-  - Buscar registros.
-  - Editar/actualizar registros.
-  - Eliminar registros (si aplica en la solución).
-- Mostrar mensajes claros para operaciones exitosas y para casos donde no se encuentre información.
+  - Crear usuario (registrar un nuevo usuario en `usuarios.csv`).
+  - Listar todos los usuarios registrados.
+  - Buscar un usuario por correo.
+  - Actualizar los datos de un usuario existente.
+  - Eliminar un usuario del archivo CSV.
+- Mostrar mensajes claros y distintivos para los flujos exitoso y errores.
 
 ---
 
 ### TASK 3
-#### Lectura de archivos CSV
-- Implementar la carga de datos desde un archivo `.csv`.
-- Validar:
-  - Existencia del archivo.
-  - Formato básico esperado (columnas).
-  - Conversión de tipos numéricos cuando corresponda.
-- Manejar errores con `try/except` para evitar que el programa se cierre inesperadamente.
+#### Lectura y escritura de archivos CSV
+- Leer y escribir siempre usando el módulo estándar `csv` de Python.
+- Validar presencia de archivo y columnas correctas.
+- Prevenir registros duplicados (basado en email).
+- Manejar excepciones para evitar cierres inesperados.
 
 ---
 
 ### TASK 4
-#### Escritura y persistencia en CSV
-- Implementar guardado/exportación de datos al archivo `.csv`.
-- Asegurar que los cambios hechos en memoria se reflejen en el archivo final.
-- Definir si el guardado sobrescribe o crea un nuevo archivo.
-- Confirmar al usuario cuando la persistencia se realiza correctamente.
+#### Menú e interacción por consola
+- Menú principal tras el login, con opciones para todas las operaciones CRUD y salir.
+- Usar bucles para permitir operaciones sucesivas sin reiniciar el programa.
+- Validar entradas del usuario (números, campos obligatorios, formato de correo, etc).
 
 ---
 
 ### TASK 5
-#### Menú e interacción por consola
-- Integrar un menú principal para ejecutar todas las funcionalidades.
-- Usar un bucle (`while`) para mantener la app activa hasta seleccionar “Salir”.
-- Validar entradas de usuario (opciones de menú y tipos de datos).
-
----
-
-### TASK 6
-#### Calidad y robustez
-- Organizar el código en funciones para mejorar legibilidad.
-- Usar nombres descriptivos en variables y funciones.
-- Incluir comentarios o docstrings básicos.
-- Garantizar que errores de entrada o de archivos no rompan el flujo del programa.
+#### Estilo y calidad
+- Separar la lógica del programa en módulos o funciones claras (`funciones.py`, `main.py`, etc).
+- Documentar funciones con docstrings y breves comentarios.
+- Los nombres de variables y funciones deben ser descriptivos y consistentes.
+- Los errores nunca cierran el sistema inesperadamente, siempre hay un mensaje al usuario.
 
 ---
 
 ## Criterios de aceptación
 
 ### Funcionalidad
-- El programa permite cargar datos desde CSV.
-- El programa permite modificar/agregar información.
-- El programa permite guardar los cambios en CSV (persistencia real).
+- El login solo permite acceso con credenciales válidas de CSV.
+- El sistema permite crear, listar, buscar, actualizar y eliminar usuarios registrados en CSV.
+- Todos los cambios en usuarios se reflejan de manera persistente en `usuarios.csv`.
 
 ### Validaciones y errores
-- Se gestionan errores de archivo inexistente, formato inválido o tipos incorrectos.
-- El sistema informa al usuario lo ocurrido con mensajes claros.
+- Control de errores de archivo inexistente, registros duplicados y entradas inválidas.
+- Mensajes claros y diferenciados para éxito y error.
 
 ### Interfaz
-- Existe menú funcional en consola con opciones claras.
-- El usuario puede operar el sistema sin que se cierre ante errores comunes.
+- Menú claro y funcional por consola.
+- Permite operar el sistema sin cerrarse por errores comunes.
 
 ### Código
-- Se evidencia uso de funciones, estructuras de datos y manejo de excepciones.
-- El código es entendible y mantenible para nivel de fundamentos en Python.
+- Uso de funciones, modularidad, manejo de excepciones y legibilidad apropiados para nivel fundamentos de Python.

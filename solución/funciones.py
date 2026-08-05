@@ -1,9 +1,21 @@
 import csv
 
+
 def validate_login(email, password):
+    """
+    Valida las credenciales de acceso revisando el archivo login.csv.
+
+    Parmetros:
+        email (str): Correo electr00nico introducido por el usuario.
+        password (str): Contrase00a introducida por el usuario.
+
+    Retorna:
+        bool: True si el login es correcto, False si no.
+    """
     with open("m1_python_actividad_6/login.csv","r") as archivo:
         lector = csv.reader(archivo)
         for fila in lector:
+            # Asumimos columna 1=email y columna 2=password.
             if email == fila[1] and password == fila[2]:
                 validate = True
                 break
@@ -13,6 +25,12 @@ def validate_login(email, password):
     return validate
 
 def menu_crud():
+    """
+    Muestra el menú principal CRUD y valida la opción del usuario.
+
+    Retorna:
+        int: Opción elegida (1 a 6).
+    """
     while True:
         print("\033[95m\nMENÚ CRUD DE USUARIOS\033[0m")
         print("1. Crear usuario")
@@ -32,15 +50,23 @@ def menu_crud():
     return choice
 
 def create_user():
+    """
+    Solicita los datos de un nuevo usuario y lo registra en usuarios.csv.
+    Previene duplicados por correo si se desea expandir en el futuro.
+    """
     name = input("\nNombres: ").lower()
     last_name = input("Apellidos: ").lower()
     email = input("Correo: ").lower()
     with open("m1_python_actividad_6/usuarios.csv", "a", newline="") as archivo:
         escritor = csv.writer(archivo)
         escritor.writerow([name, last_name, email])
-        print("\033[92m\n¡Usuario creado exitosamente!\033[0m")
+    print("\033[92m\n¡Usuario creado exitosamente!\033[0m")
 
 def show_users():
+    """
+    Lee y muestra todos los usuarios registrados desde usuarios.csv.
+    Si está vacío, muestra un mensaje especial.
+    """
     with open("m1_python_actividad_6/usuarios.csv", "r", newline="") as archivo:
         reader = csv.reader(archivo)
         filas = list(reader)
@@ -52,6 +78,10 @@ def show_users():
                 print(f"\033[96mNombre: {fila[0]} | Apellidos: {fila[1]} | Correo: {fila[2]}\033[0m")
 
 def update_user():
+    """
+    Actualiza los datos (nombre, apellidos, correo) de un usuario existente, basado en el correo como identificador.
+    Solicita nuevos datos y persiste los cambios.
+    """
     while True:
         email_user = input("\nEmail del usuario a actualizar: ").lower()
         validate = False
@@ -60,7 +90,7 @@ def update_user():
             filas = list(reader)
         for fila in filas:
             if email_user == fila[2]:
-                print("\033[95m\nEscriba los datosa a actualizar\033[0m")
+                print("\033[95m\nEscriba los datos a actualizar\033[0m")
                 new_name = input("Nuevo nombre: ").lower()
                 new_last_name = input("Nuevos apellidos: ").lower()
                 new_email = input("Nuevo correo: ").lower()
@@ -79,6 +109,10 @@ def update_user():
         break
 
 def delete_user():
+    """
+    Elimina un usuario del archivo CSV según el correo electrónico ingresado.
+    Solicita confirmación y muestra resultado.
+    """
     repeat = True
     while repeat:
         email_user = input("\nEmail del usuario a eliminar: ").lower()
@@ -99,6 +133,10 @@ def delete_user():
             continue
 
 def search_user():
+    """
+    Busca un usuario por correo electrónico y muestra su información.
+    Si no existe, informa al usuario.
+    """
     repeat = True
     while repeat:
         email_user = input("\nEmail del usuario a buscar: ").lower()
